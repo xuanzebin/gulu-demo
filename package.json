@@ -1,0 +1,15 @@
+{
+  "name": "gulu-demo",
+  "version": "1.0.0",
+  "description": "用Vue制作的名为轱辘的UI框架",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "vue",
+    "ui"
+  ],
+  "author": "",
+  "license": "MIT"
+}
