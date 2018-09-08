@@ -1,8 +1,6 @@
 <template>
     <button class="g-button" :class="{[iconPosition]:true}">
-        <svg class="icon" aria-hidden="true">
-            <use :xlink:href="`#i-${icon}`"></use>
-        </svg>
+        <g-icon :icon="icon"></g-icon>
         <div class="content">
             <slot></slot>
         </div>
@@ -44,14 +42,6 @@
         }
         >.content{
             order:2;
-        }
-        >.icon {
-            order:1;
-            width: 1em; height: 1em;
-            vertical-align: -0.15em;
-            fill: currentColor;
-            overflow: hidden;
-            margin-right:.15em;
         }
         &.right{
             >.content{
