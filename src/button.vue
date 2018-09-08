@@ -1,5 +1,6 @@
 <template>
     <button class="g-button" :class="{[iconPosition]:true}">
+        <g-icon icon="loading" class="loading"></g-icon>
         <g-icon :icon="icon"></g-icon>
         <div class="content">
             <slot></slot>
@@ -52,6 +53,13 @@
                 margin-right: 0;
                 margin-left:.15em;
             }
+        }
+        @keyframes spin{
+            0%{transform: rotate(0deg);}
+            100%{transform: rotate(-360deg);}
+        }
+        >.loading{
+            animation:spin 0.5s infinite linear;
         }
 
     }
