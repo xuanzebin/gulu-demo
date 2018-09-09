@@ -20,6 +20,7 @@
         display: inline-flex;
         justify-content: center;
         align-items: center;
+        vertical-align: top;
         &>.g-button{
             &:not(:first-child){
                 margin-left: -1px;
