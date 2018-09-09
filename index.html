@@ -28,9 +28,9 @@
 </head>
 <body>
 <div id="app">
-    <g-button icon="setting">按钮</g-button>
-    <g-button icon="setting" icon-position="left">按钮</g-button>
-    <g-button icon="setting" icon-position="right">按钮</g-button>
+    <g-button :loading="loading2" @click="loading2=!loading2">按钮</g-button>
+    <g-button icon="setting" icon-position="left" :loading="loading" @click="loading=!loading">按钮</g-button>
+    <g-button icon="setting" icon-position="right" :loading="loading1" @click="loading1=!loading1">按钮</g-button>
 </div>
 <script src="//at.alicdn.com/t/font_829095_2a5jc935u4i.js"></script>
 <script src="./src/app.js"></script>
