@@ -24,20 +24,32 @@
         body {
             font-size: var(--font-size);
         }
+        .box{
+            margin:20px;
+        }
     </style>
 </head>
 <body>
 <div id="app">
-    <g-button :loading="loading2" @click="loading2=!loading2">按钮</g-button>
-    <g-button icon="setting" icon-position="left" :loading="loading" @click="loading=!loading">按钮</g-button>
-    <g-button icon="setting" icon-position="right" :loading="loading1" @click="loading1=!loading1">按钮</g-button>
-    <g-button-group>
-        <g-button icon="left">上一页</g-button>
-        <g-button>更多</g-button>
-        <g-button icon="right" icon-position="right">下一页</g-button>
-    </g-button-group>
+    <div class="box">
+        <g-input value="小熊"></g-input>
+        <g-input value="小广" disabled></g-input>
+        <g-input value="小球" readonly></g-input>
+    </div>
+    <div class="box">
+        <g-input value="宣" error="输入内容需大于两位"></g-input>
+    </div>
+    <div class="box">
+        <g-button :loading="loading2" @click="loading2=!loading2">按钮</g-button>
+        <g-button icon="setting" icon-position="left" :loading="loading" @click="loading=!loading">按钮</g-button>
+        <g-button icon="setting" icon-position="right" :loading="loading1" @click="loading1=!loading1">按钮</g-button>
+        <g-button-group>
+            <g-button icon="left">上一页</g-button>
+            <g-button>更多</g-button>
+            <g-button icon="right" icon-position="right">下一页</g-button>
+        </g-button-group>
+    </div>
 </div>
-<!--<script src="//at.alicdn.com/t/font_829095_mz8olpklv3e.js"></script>-->
 <script src="./src/app.js"></script>
 </body>
 </html>

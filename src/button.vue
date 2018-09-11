@@ -9,7 +9,6 @@
 </template>
 <script>
     import Icon from './icon'
-    import './svg'
     export default {
         props:{
             icon:{},
@@ -30,7 +29,7 @@
         }
     }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
     .g-button{
         font-size:var(--font-size);
         height:var(--button-height);
