@@ -9,6 +9,7 @@
 </template>
 <script>
     import Icon from './icon'
+    import './svg'
     export default {
         props:{
             icon:{},
