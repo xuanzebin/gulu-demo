@@ -32,12 +32,13 @@
 <body>
 <div id="app">
     <div class="box">
-        <g-input value="小熊"></g-input>
+        <g-input value="小熊" @input="inputKey"></g-input>
         <g-input value="小广" disabled></g-input>
-        <g-input value="小球" readonly></g-input>
+        <g-input value="小球" readonly ></g-input>
     </div>
     <div class="box">
-        <g-input value="宣" error="输入内容需大于两位"></g-input>
+        <g-input v-model="message" error="输入内容需大于两位"></g-input>
+        {{message}}
     </div>
     <div class="box">
         <g-button :loading="loading2" @click="loading2=!loading2">按钮</g-button>

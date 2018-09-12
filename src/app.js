@@ -13,6 +13,12 @@ new Vue({
     data:{
         loading:true,
         loading1:false,
-        loading2:false
+        loading2:false,
+        message:'宣'
+    },
+    methods:{
+        inputKey(e){
+            console.log(e.target.value)
+        }
     }
 })
