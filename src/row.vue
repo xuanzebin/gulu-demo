@@ -5,7 +5,7 @@
 </template>
 <script>
     export default{
-
+        name:'GuluRow',
     }
 </script>
 <style scoped lang="scss">
