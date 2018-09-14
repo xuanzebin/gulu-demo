@@ -12,6 +12,19 @@
             },
             offset:{
                 type:[Number,String]
+            },
+            phone:{
+                type:Object,
+                validator(value){
+                    let keys=Object.keys(value)
+                    let valid=true
+                    keys.forEach(key=>{
+                        if (!['span','offset'].includes(key)){
+                            valid=false
+                        }
+                    })
+                    return valid
+                }
             }
         },
         data(){
@@ -27,9 +40,11 @@
                 }
             },
             colClass(){
+                let {phone}=this
                 return [
                     this.span && `col-${this.span}` ,
-                    this.offset && `offset-${this.offset}`
+                    this.offset && `offset-${this.offset}`,
+                    ...(phone?[phone.span && `col-phone-${phone.span}`,phone.offset && `offset-phone-${phone.offset}`] : [])
                 ]
             }
         }
@@ -47,6 +62,20 @@
         @for $n from 1 through 24{
             &.#{$class}#{$n}{
                 margin-left:($n/24)*100%;
+            }
+        }
+        @media (max-width:576px){
+            $class:col-phone-;
+            @for $n from 1 through 24{
+                &.#{$class}#{$n}{
+                    width:($n/24)*100%;
+                }
+            }
+            $class:offset-phone-;
+            @for $n from 1 through 24{
+                &.#{$class}#{$n}{
+                    margin-left:($n/24)*100%;
+                }
             }
         }
     }

@@ -39,8 +39,8 @@
 <div id="app">
     <div class="box">
         <g-row>
-            <g-col class="g-col" span="21">1</g-col>
-            <g-col class="g-col" span="2" offset="1">2</g-col>
+            <g-col class="g-col" span="21" :phone="{span:'24'}">1</g-col>
+            <g-col class="g-col" span="2" :phone="{span:'24'}">2</g-col>
         </g-row>
         <g-row>
             <g-col class="g-col" span="10" align="right">123</g-col>
@@ -61,7 +61,6 @@
     </div>
     <div class="box">
         <g-input v-model="message" error="输入内容需大于两位"></g-input>
-        {{message}}
     </div>
     <div class="box">
         <g-button :loading="loading2" @click="loading2=!loading2">按钮</g-button>
