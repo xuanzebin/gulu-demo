@@ -4,6 +4,16 @@
     </div>
 </template>
 <script>
+    let validator=(value)=>{
+        let keys=Object.keys(value)
+        let valid=true
+        keys.forEach(key=>{
+            if (!['span','offset'].includes(key)){
+                valid=false
+            }
+        })
+        return valid
+    }
     export default{
         name:'GuluCol',
         props:{
@@ -13,19 +23,10 @@
             offset:{
                 type:[Number,String]
             },
-            phone:{
-                type:Object,
-                validator(value){
-                    let keys=Object.keys(value)
-                    let valid=true
-                    keys.forEach(key=>{
-                        if (!['span','offset'].includes(key)){
-                            valid=false
-                        }
-                    })
-                    return valid
-                }
-            }
+            ipad:{type:Object, validator},
+            narrowPc:{type:Object, validator},
+            pc:{type:Object, validator},
+            widePc:{type:Object, validator}
         },
         data(){
             return {
@@ -40,12 +41,28 @@
                 }
             },
             colClass(){
-                let {phone}=this
+                let {span,offset,ipad,narrowPc,pc,widePc}=this
+                let createClasses=this.createClasses
                 return [
-                    this.span && `col-${this.span}` ,
-                    this.offset && `offset-${this.offset}`,
-                    ...(phone?[phone.span && `col-phone-${phone.span}`,phone.offset && `offset-phone-${phone.offset}`] : [])
+                    ...createClasses({span,offset}),
+                    ...createClasses(ipad,'ipad-'),
+                    ...createClasses(narrowPc,'narrow-pc-'),
+                    ...createClasses(pc,'pc-'),
+                    ...createClasses(widePc,'wide-pc-')
                 ]
+            }
+        },
+        methods:{
+            createClasses(obj,str=''){
+                let array=[]
+                if (!obj){return array}
+                if (obj.span){
+                    array.push(`col-${str}${obj.span}`)
+                }
+                if (obj.offset){
+                    array.push(`offset-${str}${obj.offset}`)
+                }
+                return array
             }
         }
     }
@@ -64,14 +81,56 @@
                 margin-left:($n/24)*100%;
             }
         }
-        @media (max-width:576px){
-            $class:col-phone-;
+        @media (min-width:576px){
+            $class:col-ipad-;
             @for $n from 1 through 24{
                 &.#{$class}#{$n}{
                     width:($n/24)*100%;
                 }
             }
-            $class:offset-phone-;
+            $class:offset-ipad-;
+            @for $n from 1 through 24{
+                &.#{$class}#{$n}{
+                    margin-left:($n/24)*100%;
+                }
+            }
+        }
+        @media (min-width:768px){
+            $class:col-narrow-pc-;
+            @for $n from 1 through 24{
+                &.#{$class}#{$n}{
+                    width:($n/24)*100%;
+                }
+            }
+            $class:offset-narrow-pc-;
+            @for $n from 1 through 24{
+                &.#{$class}#{$n}{
+                    margin-left:($n/24)*100%;
+                }
+            }
+        }
+        @media (min-width:992px){
+            $class:col-pc-;
+            @for $n from 1 through 24{
+                &.#{$class}#{$n}{
+                    width:($n/24)*100%;
+                }
+            }
+            $class:offset-pc-;
+            @for $n from 1 through 24{
+                &.#{$class}#{$n}{
+                    margin-left:($n/24)*100%;
+                }
+            }
+        }
+        @media (min-width:1200px){
+            $class:col-wide-pc-;
+            @for $n from 1 through 24{
+                &.#{$class}#{$n}{
+                    width:($n/24)*100%;
+                }
+            }
+            $class:offset-wide-pc-;
             @for $n from 1 through 24{
                 &.#{$class}#{$n}{
                     margin-left:($n/24)*100%;
