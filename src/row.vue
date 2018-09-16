@@ -33,7 +33,7 @@
         },
         mounted(){
             this.$children.forEach(col=>{
-                col.$data.gutter=this.gutter
+                col.gutter=this.gutter
             })
         }
     }
