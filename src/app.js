@@ -35,6 +35,9 @@ new Vue({
         loading2:false,
         message:'宣'
     },
+    mounted(){
+        this.$toast('我是message')
+    },
     methods:{
         inputKey(e){
             console.log(e.target.value)
