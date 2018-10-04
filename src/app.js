@@ -36,7 +36,14 @@ new Vue({
         message:'宣'
     },
     mounted(){
-        this.$toast('我是message')
+        this.$toast('我是message',{
+            closeButton:{
+                text:'hi',
+                callback:()=>{
+                    console.log('我知道你点击我了')
+                }
+            }
+        })
     },
     methods:{
         inputKey(e){

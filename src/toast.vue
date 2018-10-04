@@ -1,8 +1,11 @@
 <template>
     <div ref="wrapper" class="g-toast">
-        <slot></slot>
+        <div class="message">
+            <slot v-if="!enableHTML"></slot>
+            <div v-else v-html="$slots.default[0]"></div>
+        </div>
         <div class="line" ref="line"></div>
-        <span class="close" @click="closeToast">{{closeButton.text}}</span>
+        <span class="close" @click="clickCloseButton">{{closeButton.text}}</span>
     </div>
 </template>
 <script>
@@ -25,6 +28,10 @@
                         callback:undefined
                     }
                 }
+            },
+            enableHTML:{
+                type:Boolean,
+                default:false
             }
         },
         mounted(){
@@ -38,6 +45,12 @@
             })
         },
         methods:{
+            clickCloseButton(){
+              this.closeToast()
+              if (this.closeButton.callback && typeof this.closeButton.callback==='function') {
+                  this.closeButton.callback(this)
+              }
+            },
             closeToast(){
                 this.$el.remove()
                 this.$destroy()
@@ -49,7 +62,7 @@
     $g-toast-bg:rgba(0,0,0,0.74);
     $g-toast-shadow:0 0 3px 0 rgba(0,0,0,0.50);
     $g-toast-font-size:14px;
-    $g-toast-line-height:2.0;
+    $g-toast-line-height:1.8;
     $g-toast-min-height:40px;
     .g-toast{
         position:fixed;top:0;left:50%;transform: translateX(-50%);color:white;
@@ -58,6 +71,9 @@
         align-items: center;
         min-height:$g-toast-min-height;
         display: flex;
+        .message{
+            padding:8px 0;
+        }
         .close{
             margin-left:16px;
             cursor:pointer;
