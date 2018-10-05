@@ -42,7 +42,8 @@ new Vue({
                 callback:()=>{
                     console.log('我知道你点击我了')
                 }
-            }
+            },
+            position:'middle'
         })
     },
     methods:{

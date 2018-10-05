@@ -1,5 +1,5 @@
 <template>
-    <div ref="wrapper" class="g-toast">
+    <div ref="wrapper" class="g-toast" :class="toastPosition">
         <div class="message">
             <slot v-if="!enableHTML"></slot>
             <div v-else v-html="$slots.default[0]"></div>
@@ -32,6 +32,13 @@
             enableHTML:{
                 type:Boolean,
                 default:false
+            },
+            position:{
+                type:String,
+                default:'top',
+                validate(value){
+                    return ['top','bottom','middle'].indexOf(value)>=0
+                }
             }
         },
         mounted(){
@@ -43,6 +50,11 @@
             this.$nextTick(()=>{
                 this.$refs.line.style.height=`${this.$refs.wrapper.getBoundingClientRect().height}px`
             })
+        },
+        computed:{
+            toastPosition:function(){
+                return {[`position-${this.position}`]:true}
+            }
         },
         methods:{
             clickCloseButton(){
@@ -65,7 +77,7 @@
     $g-toast-line-height:1.8;
     $g-toast-min-height:40px;
     .g-toast{
-        position:fixed;top:0;left:50%;transform: translateX(-50%);color:white;
+        position:fixed;left:50%;color:white;
         padding:0 16px;border-radius: 4px;background: $g-toast-bg;
         box-shadow: $g-toast-shadow;font-size:$g-toast-font-size;line-height: $g-toast-line-height;
         align-items: center;
@@ -81,6 +93,18 @@
         .line{
             border-left: 1px solid #666;
             margin-left:16px;
+        }
+        &.position-top{
+            top:0;
+            transform: translateX(-50%);
+        }
+        &.position-bottom{
+            bottom:0;
+            transform: translateX(-50%);
+        }
+        &.position-middle{
+            top:50%;
+            transform: translate(-50%,-50%);
         }
     }
 </style>
