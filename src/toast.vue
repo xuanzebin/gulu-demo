@@ -1,11 +1,13 @@
 <template>
-    <div ref="wrapper" class="g-toast" :class="toastPosition">
-        <div class="message">
-            <slot v-if="!enableHTML"></slot>
-            <div v-else v-html="$slots.default[0]"></div>
+    <div class="wrapper" :class="toastPosition">
+        <div ref="toast" class="g-toast">
+            <div class="message">
+                <slot v-if="!enableHTML"></slot>
+                <div v-else v-html="$slots.default[0]"></div>
+            </div>
+            <div class="line" ref="line"></div>
+            <span class="close" @click="clickCloseButton">{{closeButton.text}}</span>
         </div>
-        <div class="line" ref="line"></div>
-        <span class="close" @click="clickCloseButton">{{closeButton.text}}</span>
     </div>
 </template>
 <script>
@@ -48,7 +50,7 @@
                 },this.autoCloseDelay*1000)
             }
             this.$nextTick(()=>{
-                this.$refs.line.style.height=`${this.$refs.wrapper.getBoundingClientRect().height}px`
+                this.$refs.line.style.height=`${this.$refs.toast.getBoundingClientRect().height}px`
             })
         },
         computed:{
@@ -77,8 +79,49 @@
     $g-toast-font-size:14px;
     $g-toast-line-height:1.8;
     $g-toast-min-height:40px;
+    $g-toast-animationTime:0.5s;
+    @keyframes fade-in{
+        0%{opacity:0;}
+        100%{opacity:1;}
+    }
+    @keyframes slide-up{
+        0%{transform:translateY(100%)}
+        100%{transform:translateY(0%)}
+    }
+    @keyframes slide-down{
+        0%{transform:translateY(-100%)}
+        100%{transform:translateY(0%)}
+    }
+    .wrapper{
+        position:fixed;left:50%;
+        &.position-top{
+            top:0;
+            transform: translateX(-50%);
+            .g-toast{
+                animation:slide-down $g-toast-animationTime;
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+            }
+        }
+        &.position-bottom{
+            bottom:0;
+            transform: translateX(-50%);
+            .g-toast{
+                animation:slide-up $g-toast-animationTime;
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+        }
+        &.position-middle{
+            top:50%;
+            transform: translate(-50%,-50%);
+            .g-toast{
+                animation:fade-in $g-toast-animationTime;
+            }
+        }
+    }
     .g-toast{
-        position:fixed;left:50%;color:white;
+        color:white;
         padding:0 16px;border-radius: 4px;background: $g-toast-bg;
         box-shadow: $g-toast-shadow;font-size:$g-toast-font-size;line-height: $g-toast-line-height;
         align-items: center;
@@ -94,18 +137,6 @@
         .line{
             border-left: 1px solid #666;
             margin-left:16px;
-        }
-        &.position-top{
-            top:0;
-            transform: translateX(-50%);
-        }
-        &.position-bottom{
-            bottom:0;
-            transform: translateX(-50%);
-        }
-        &.position-middle{
-            top:50%;
-            transform: translate(-50%,-50%);
         }
     }
 </style>
