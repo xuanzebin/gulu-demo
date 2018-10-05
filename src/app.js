@@ -35,23 +35,39 @@ new Vue({
         loading2:false,
         message:'宣'
     },
-    mounted(){
-        this.$toast('我是message',{
-            closeButton:{
-                text:'hi',
-                callback:()=>{
-                    console.log('我知道你点击我了')
-                }
-            },
-            position:'middle'
-        })
-    },
     methods:{
-        inputKey(e){
-            console.log(e.target.value)
+        showToast1(){
+            this.$toast('我是message',{
+                closeButton:{
+                    text:'hi',
+                    callback:()=>{
+                        console.log('我知道你点击我了')
+                    }
+                },
+                position:'top'
+            })
         },
-        showToast(){
-            this.$toast('我是message')
+        showToast2(){
+            this.$toast('我是message',{
+                closeButton:{
+                    text:'hi',
+                    callback:()=>{
+                        console.log('我知道你点击我了')
+                    }
+                },
+                position:'middle'
+            })
+        },
+        showToast3(){
+            this.$toast('我是message',{
+                closeButton:{
+                    text:'hi',
+                    callback:()=>{
+                        console.log('我知道你点击我了')
+                    }
+                },
+                position:'bottom'
+            })
         }
     }
 })
