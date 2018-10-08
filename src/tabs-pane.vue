@@ -6,6 +6,12 @@
 <script>
     export default{
         name:'GuluTabsPane',
+        props:{
+            name:{
+                type:[Number,String],
+                require:true
+            }
+        },
         inject:['eventBus'],
         created(){
             this.eventBus.$on('update:selected',(data)=>{
