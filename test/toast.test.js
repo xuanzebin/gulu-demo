@@ -22,8 +22,9 @@ describe('Input',()=>{
                 expect(document.body.contains(vm.$el)).to.eq(false)
                 done()
             })
+            div.remove()
         })
-        it('接受 closeButton',()=>{
+        it('接受 closeButton',(done)=>{
             const callback=sinon.fake()
             const Constructor=Vue.extend(Toast)
             let vm=new Constructor({
@@ -36,8 +37,11 @@ describe('Input',()=>{
             }).$mount()
             let closeButton=vm.$el.querySelector('.close')
             expect(closeButton.textContent.trim()).to.eq('test')
-            closeButton.click()
-            expect(callback).to.have.been.called
+            setTimeout(()=>{
+                closeButton.click()
+                expect(callback).to.have.been.called
+                done()
+            },200)
         })
         it('接受 enableHTML',()=>{
             const Constructor=Vue.extend(Toast)
