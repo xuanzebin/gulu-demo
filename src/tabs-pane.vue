@@ -1,11 +1,16 @@
 <template>
-    <div class="g-tabs-pane">
+    <div class="g-tabs-pane" :class="classes" v-if="active">
         <slot></slot>
     </div>
 </template>
 <script>
     export default{
         name:'GuluTabsPane',
+        data(){
+          return {
+              active:false
+          }
+        },
         props:{
             name:{
                 type:[Number,String],
@@ -13,11 +18,23 @@
             }
         },
         inject:['eventBus'],
-        created(){
-            this.eventBus.$on('update:selected',(data)=>{
-                console.log(data)
+        mounted(){
+            this.eventBus.$on('update:selected',(name)=>{
+                this.active= this.name === name
             })
+        },
+        computed:{
+            classes(){
+                return {
+                    active:this.active
+                }
+            }
         }
     }
 </script>
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+    .g-tabs-pane{
+        border:1px solid black;
+        padding:20px;
+    }
+</style>

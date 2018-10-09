@@ -19,10 +19,8 @@
                 eventBus:new Vue()
             }
         },
-        created(){
-          this.eventBus.$on('update:selected',(data)=>{
-              console.log(data)
-          })
+        mounted(){
+          this.eventBus.$emit('update:selected',this.selected)
         },
         provide(){
             return {
