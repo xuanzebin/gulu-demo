@@ -15,6 +15,10 @@
             name:{
                 type:[Number,String],
                 require:true
+            },
+            disabled:{
+                type:Boolean,
+                default:false
             }
         },
         inject:['eventBus'],
@@ -25,13 +29,15 @@
         },
         methods:{
             chooseTabs(){
+                if (this.disabled) return 
                 this.eventBus.$emit('update:selected',this.name,this)
             }
         },
         computed:{
             classes(){
                 return {
-                    active:this.active
+                    active:this.active,
+                    disabled:this.disabled
                 }
             }
         }
@@ -39,6 +45,7 @@
 </script>
 <style scoped lang="scss">
     $active-color: #4A90E2;
+    $disabled-color:grey;
     .g-tabs-item{
         display: flex;
         justify-content: center;
@@ -50,6 +57,10 @@
         &.active{
             color:$active-color;
             font-weight:bold;
+        }
+        &.disabled{
+            color:$disabled-color;
+            cursor: not-allowed;
         }
     }
 </style>
