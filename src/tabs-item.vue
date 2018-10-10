@@ -1,5 +1,6 @@
 <template>
-    <div class="g-tabs-item" @click="chooseTabs" :class="classes">
+    <div class="g-tabs-item" @click="chooseTabs" :class="classes"
+    :data-name="name">
         <slot></slot>
     </div>
 </template>
@@ -23,14 +24,19 @@
         },
         inject:['eventBus'],
         mounted(){
-            this.eventBus.$on('update:selected',(name)=>{
-                this.active = this.name === name
-            })
+            if (this.eventBus){
+                this.eventBus.$on('update:selected',(name)=>{
+                    this.active = this.name === name
+                })
+            }
         },
         methods:{
             chooseTabs(){
-                if (this.disabled) return 
-                this.eventBus.$emit('update:selected',this.name,this)
+                if (this.disabled) return
+                if (this.eventBus){
+                    this.eventBus.$emit('update:selected',this.name,this)
+                }
+                this.$emit('click',this)
             }
         },
         computed:{
